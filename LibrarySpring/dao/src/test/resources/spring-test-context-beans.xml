@@ -1,0 +1,131 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="accessDao" class="com.pvt.app.daoImpl.AccessDaoImpl"/>
+    <bean id="authorDao" class="com.pvt.app.daoImpl.AuthorDaoImpl"/>
+    <bean id="bookDao" class="com.pvt.app.daoImpl.BookDaoImpl"/>
+    <bean id="userDao" class="com.pvt.app.daoImpl.UserDaoImpl"/>
+
+    <!--register tests-->
+
+    <bean name="testUser1" class="com.pvt.app.entity.User">
+        <property name="name" value="Test User 1"/>
+        <property name="email" value="test1@gmail.com"/>
+        <property name="role" value="user"/>
+    </bean>
+
+    <bean name="testUser2" class="com.pvt.app.entity.User">
+        <property name="name" value="Test User 2"/>
+        <property name="email" value="test2@gmail.com"/>
+        <property name="role" value="user"/>
+    </bean>
+
+    <bean name="testUser1AD" class="com.pvt.app.entity.AccessData">
+        <property name="pass" ref="testPass"/>
+        <property name="confirmPass" ref="testPass"/>
+        <property name="user" ref="testUser1"/>
+    </bean>
+
+    <bean name="testUser2AD" class="com.pvt.app.entity.AccessData">
+        <property name="pass" ref="testPass"/>
+        <property name="confirmPass" ref="testPass"/>
+        <property name="user" ref="testUser2"/>
+    </bean>
+
+    <bean name="testPass" class="java.lang.String">
+        <constructor-arg value="testPass"/>
+    </bean>
+
+    <!--login tests-->
+
+    <bean name="admin" class="com.pvt.app.entity.User" scope="prototype">
+        <property name="email" value="admin@gmail.com"/>
+    </bean>
+
+    <bean name="adminLoginData" class="com.pvt.app.entity.AccessData" scope="prototype">
+        <property name="user" ref="admin"/>
+    </bean>
+
+    <bean name="emptyUser" class="com.pvt.app.entity.User" scope="prototype">
+        <property name="email" value="wrongEmail"/>
+    </bean>
+
+    <bean name="emptyUserLoginData" class="com.pvt.app.entity.AccessData" scope="prototype">
+        <property name="user" ref="emptyUser"/>
+    </bean>
+
+    <!--bookDao tests-->
+
+    <bean name="testBook" class="com.pvt.app.entity.Book" scope="prototype">
+        <property name="title" value="testBook"/>
+        <property name="text" ref="testBookText"/>
+        <property name="user" ref="testBookUser"/>
+        <property name="authors">
+            <list>
+                <ref bean="testBookAuthor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="testBookUser" class="com.pvt.app.entity.User">
+        <property name="id" value="3"/>
+    </bean>
+
+    <bean name="testBookAuthor" class="com.pvt.app.entity.Author">
+        <property name="id" value="1"/>
+    </bean>
+
+    <bean name="testBookText" class="com.pvt.app.entity.Text">
+        <property name="text" value="Test book text"/>
+    </bean>
+
+    <bean name="testBookNew" class="com.pvt.app.entity.Book" scope="prototype">
+        <property name="title" value="testBookNew"/>
+        <property name="text" ref="testBookTextNew"/>
+        <property name="user" ref="testBookUserNew"/>
+        <property name="authors">
+            <list>
+                <ref bean="testBookAuthorNew"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="testBookUserNew" class="com.pvt.app.entity.User">
+        <property name="id" value="4"/>
+    </bean>
+
+    <bean name="testBookAuthorNew" class="com.pvt.app.entity.Author">
+        <property name="id" value="2"/>
+    </bean>
+
+    <bean name="testBookTextNew" class="com.pvt.app.entity.Text">
+        <property name="text" value="Test book updated text"/>
+    </bean>
+
+    <!--AuthorDao tests-->
+
+    <bean name="testAuthor" class="com.pvt.app.entity.Author">
+        <property name="name" value="Test Author"/>
+        <property name="name4table" value="testAuthor"/>
+        <property name="text" ref="testAuthorText"/>
+        <property name="user" ref="testBookUser"/>
+    </bean>
+
+    <bean name="testAuthorNew" class="com.pvt.app.entity.Author">
+        <property name="name" value="Test Author (updated)"/>
+        <property name="name4table" value="testAuthor (updated)"/>
+        <property name="text" ref="testAuthorTextNew"/>
+        <property name="user" ref="testBookUserNew"/>
+    </bean>
+
+    <bean name="testAuthorText" class="com.pvt.app.entity.Text">
+        <property name="text" value="Test author info"/>
+    </bean>
+
+    <bean name="testAuthorTextNew" class="com.pvt.app.entity.Text">
+        <property name="text" value="Test author updated info"/>
+    </bean>
+
+</beans>
